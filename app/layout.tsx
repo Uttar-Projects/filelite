@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { adsenseClient } from "@/lib/ads/slots";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/seo/site";
@@ -56,6 +58,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const adsClient = adsenseClient();
   return (
     <html lang="en" className={`${sans.variable} dark h-full`} suppressHydrationWarning>
       <head>
@@ -64,6 +67,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-full flex-col antialiased">
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
+        {adsClient ? (
+          <Script
+            id="adsense"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        ) : null}
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

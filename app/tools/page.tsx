@@ -22,10 +22,7 @@ export default function ToolsPage() {
       <Suspense>
         <ToolsDashboard />
       </Suspense>
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-2">
-        <AdSlot position="content" />
-        <AdSlot position="bottom" />
-      </div>
+      <AdSlot position="content" />
     </>
   );
 }

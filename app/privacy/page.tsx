@@ -30,6 +30,11 @@ export default function PrivacyPage() {
           like format and quality. It does not send image contents, file names, or the pixels themselves.
         </p>
         <p>
+          When ads are turned on, Google AdSense may place advertisements on the page and use cookies to measure and
+          personalize them. Your images and tool inputs are still processed in the browser and are not sent to the ad
+          network.
+        </p>
+        <p>
           The contact form does not post to a {siteConfig.name} server. If a contact email is configured, your browser
           opens a mail draft. If it is not configured, you can copy the message locally.
         </p>
