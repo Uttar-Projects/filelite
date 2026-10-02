@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Mark } from "@/components/brand/Mark";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { primaryNav } from "@/lib/seo/navigation";
 import { siteConfig } from "@/lib/seo/site";
 
@@ -22,9 +23,12 @@ export function Header() {
             <NavLink key={item.label} href={item.href} label={item.label} pathname={pathname} />
           ))}
         </nav>
-        <Suspense fallback={<SearchShell />}>
-          <HeaderSearch />
-        </Suspense>
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <Suspense fallback={<SearchShell />}>
+            <HeaderSearch />
+          </Suspense>
+          <ThemeToggle compact />
+        </div>
       </div>
       <nav aria-label="Sections" className="flex gap-1 overflow-x-auto px-4 pb-2.5 [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden">
         {primaryNav.map((item) => (
@@ -55,7 +59,7 @@ function NavLink({ href, label, pathname }: { href: string; label: string; pathn
 }
 
 function SearchShell() {
-  return <div className="ml-auto h-9 w-40 shrink-0 rounded-lg border border-line bg-card sm:ml-0 sm:w-48 lg:w-64" />;
+  return <div className="h-9 w-32 shrink-0 rounded-lg border border-line bg-card sm:w-48 lg:w-64" />;
 }
 
 function HeaderSearch() {
@@ -63,7 +67,7 @@ function HeaderSearch() {
   const q = params.get("q") ?? "";
 
   return (
-    <form action="/tools" className="ml-auto w-40 shrink-0 sm:ml-0 sm:w-48 lg:w-64" role="search">
+    <form action="/tools" className="w-32 shrink-0 sm:w-48 lg:w-64" role="search">
       <label className="flex h-9 items-center gap-2 rounded-lg border border-line bg-card px-3">
         <span className="sr-only">Search tools</span>
         <svg viewBox="0 0 20 20" className="size-4 shrink-0 text-muted" aria-hidden>
