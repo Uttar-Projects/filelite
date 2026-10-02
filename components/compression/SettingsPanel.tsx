@@ -70,6 +70,10 @@ export function SettingsPanel({
           <span>100</span>
         </div>
         <p className="mt-2 text-sm text-muted">{messages.pngQuality}</p>
+        <p className="mt-1 text-sm text-muted">
+          Automatic mode tries JPG and WebP and keeps whichever file is smaller. If a new file would grow, the original
+          is kept.
+        </p>
       </div>
 
       <div>

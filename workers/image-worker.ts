@@ -17,8 +17,10 @@ scope.onmessage = async (event: MessageEvent<WorkerRequest>) => {
       bitmap,
       {
         quality: request.quality,
-        outputFormat: "jpeg",
+        outputFormat: request.outputChoice,
         outputMime: request.outputMime,
+        inputMime: request.inputMime,
+        sourceBuffer: request.buffer,
         resizeMode: request.resizeMode,
         resizeValue: request.resizeValue,
         maintainAspectRatio: request.maintainAspectRatio,
@@ -45,6 +47,7 @@ scope.onmessage = async (event: MessageEvent<WorkerRequest>) => {
       qualityUsed: encoded.qualityUsed,
       metTarget: encoded.metTarget,
       dimensionLimited: encoded.dimensionLimited,
+      keptOriginal: encoded.keptOriginal,
     };
     scope.postMessage(message, [buffer]);
   } catch (error) {

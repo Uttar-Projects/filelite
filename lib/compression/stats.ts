@@ -27,6 +27,7 @@ export function assembleCompressionResult(input: {
   quality: number;
   metTarget: boolean | null;
   dimensionLimited: boolean;
+  keptOriginal: boolean;
 }): Omit<CompressionResult, "blob"> {
   return {
     ...input,

@@ -11,6 +11,9 @@
     "generate:demo": "node scripts/generate-demo-image.mjs"
   },
   "dependencies": {
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/oxipng": "^2.3.0",
+    "@jsquash/webp": "^1.5.0",
     "jszip": "^3.10.2",
     "next": "16.3.8",
     "react": "19.2.8",

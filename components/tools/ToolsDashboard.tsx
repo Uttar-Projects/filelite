@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { Mark } from "@/components/brand/Mark";
 import { siteConfig } from "@/lib/seo/site";
 import {
@@ -32,7 +33,13 @@ function matchesQuery(query: string, name: string, summary: string, href: string
 }
 
 export function ToolsDashboard() {
-  const [query, setQuery] = useState("");
+  const params = useSearchParams();
+  const urlQuery = params.get("q") ?? "";
+  const [query, setQuery] = useState(urlQuery);
+
+  useEffect(() => {
+    setQuery(urlQuery);
+  }, [urlQuery]);
   const instruments = instrumentTools();
   const allTools = availableTools();
   const count = instrumentCount();
@@ -43,7 +50,7 @@ export function ToolsDashboard() {
   const featured = featuredHrefs
     .map((href) => allTools.find((tool) => tool.href === href))
     .filter((tool): tool is NonNullable<typeof tool> => tool !== undefined);
-  const exploring = dashboardCategories.filter((id) => id !== "image");
+  const exploring = dashboardCategories;
   const searching = query.trim().length > 0;
 
   return (
@@ -126,11 +133,11 @@ export function ToolsDashboard() {
           </section>
         ) : (
           <>
-            <section>
+            <section id="explore">
               <div className="flex items-end justify-between gap-4">
                 <h2 className="text-2xl">Explore by category</h2>
-                <Link href="/image-tools" className="text-sm text-muted hover:text-ink">
-                  Image tools
+                <Link href="/" className="text-sm font-semibold text-accent hover:text-ink">
+                  Image compressor
                 </Link>
               </div>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -184,9 +191,7 @@ export function ToolsDashboard() {
           <span className="text-sm text-muted">Dashboard</span>
           <span className="text-sm text-muted">{count} tools</span>
           <nav aria-label="Categories" className="flex flex-wrap gap-3 text-sm text-muted">
-            {seoCategories
-              .filter((category) => category.id !== "image")
-              .map((category) => (
+            {seoCategories.map((category) => (
                 <Link key={category.path} href={category.path} className="hover:text-ink">
                   {category.navLabel}
                 </Link>

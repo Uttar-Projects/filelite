@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ToolsDashboard } from "@/components/tools/ToolsDashboard";
 import { AdSlot } from "@/components/ui/AdSlot";
@@ -18,7 +19,9 @@ export default function ToolsPage() {
   return (
     <>
       <JsonLd data={itemListSchema(tools.map((tool) => ({ name: tool.name, path: tool.href ?? "/tools" })))} />
-      <ToolsDashboard />
+      <Suspense>
+        <ToolsDashboard />
+      </Suspense>
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-2">
         <AdSlot position="content" />
         <AdSlot position="bottom" />

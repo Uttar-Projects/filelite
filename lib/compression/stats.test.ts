@@ -38,6 +38,7 @@ describe("compression statistics", () => {
       quality: 80,
       metTarget: true,
       dimensionLimited: false,
+      keptOriginal: false,
     });
     expect(result.savingsPercentage).toBe(75);
     expect(result.outputFormat).toBe("jpeg");

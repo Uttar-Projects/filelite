@@ -20,6 +20,8 @@ export const messages = {
     "The image is still above the requested size at the lowest quality. Try resizing it or choosing JPG or WebP.",
   dimensionLimited:
     "The output dimensions were reduced so this browser could encode the image.",
+  keptOriginal:
+    "A new export would have been larger, so the original file was kept.",
   batchSkipped: "Only 20 images can be processed at once. Extra files were skipped.",
 } as const;
 

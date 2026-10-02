@@ -48,13 +48,14 @@ export function ResultPanel({
         </div>
         <div>
           <dt className="text-muted">Quality</dt>
-          <dd className="text-base font-semibold">{result.quality}%</dd>
+          <dd className="text-base font-semibold">{result.keptOriginal ? "Original" : `${result.quality}%`}</dd>
         </div>
       </dl>
       <p className="mt-3 text-sm text-muted">
         {result.originalWidth} × {result.originalHeight} {formatLabel(result.originalFormat)} to {result.width} ×{" "}
         {result.height} {formatLabel(result.outputFormat)}
       </p>
+      {result.keptOriginal ? <p className="mt-2 text-sm text-muted">{messages.keptOriginal}</p> : null}
       {result.metTarget === false ? <p className="mt-2 text-sm text-muted">{messages.targetMissed}</p> : null}
       {result.dimensionLimited ? <p className="mt-2 text-sm text-muted">{messages.dimensionLimited}</p> : null}
       <div className="mt-4 flex flex-wrap gap-3">

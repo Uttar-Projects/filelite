@@ -12,6 +12,7 @@ export type WorkerRequest = {
   maxWidth?: number;
   maxHeight?: number;
   targetSizeBytes?: number;
+  outputChoice: string;
 };
 
 export type WorkerOutbound =
@@ -28,5 +29,6 @@ export type WorkerOutbound =
       qualityUsed: number;
       metTarget: boolean | null;
       dimensionLimited: boolean;
+      keptOriginal: boolean;
     }
   | { type: "error"; id: string; code: string; message: string };

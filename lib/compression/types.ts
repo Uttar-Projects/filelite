@@ -25,6 +25,8 @@ export type CompressOptions = {
   resizeValue?: number;
   maintainAspectRatio?: boolean;
   encodeSupport?: EncodeSupport;
+  inputMime?: string;
+  sourceBuffer?: ArrayBuffer;
 };
 
 export type CompressionResult = {
@@ -44,4 +46,5 @@ export type CompressionResult = {
   quality: number;
   metTarget: boolean | null;
   dimensionLimited: boolean;
+  keptOriginal: boolean;
 };

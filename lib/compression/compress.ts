@@ -31,6 +31,7 @@ function workerRequest(
     maxWidth: options.maxWidth,
     maxHeight: options.maxHeight,
     targetSizeBytes: options.targetSizeBytes,
+    outputChoice: options.outputFormat,
   };
 }
 
@@ -87,6 +88,7 @@ function encodeWithWorker(
           qualityUsed: data.qualityUsed,
           metTarget: data.metTarget,
           dimensionLimited: data.dimensionLimited,
+          keptOriginal: data.keptOriginal,
         });
       });
     };
@@ -108,7 +110,16 @@ async function encodeOnMainThread(
 ): Promise<EncodedImage> {
   const bitmap = await createImageBitmap(file);
   try {
-    return await encodeBitmap(bitmap, { ...options, outputMime }, hooks?.onProgress);
+    return await encodeBitmap(
+      bitmap,
+      {
+        ...options,
+        outputMime,
+        inputMime: options.inputMime ?? (file.type || outputMime),
+        sourceBuffer: await file.arrayBuffer(),
+      },
+      hooks?.onProgress,
+    );
   } finally {
     bitmap.close();
   }
@@ -167,6 +178,7 @@ export async function compressImage(
     quality: Math.round(encoded.qualityUsed * 100),
     metTarget: encoded.metTarget,
     dimensionLimited: encoded.dimensionLimited,
+    keptOriginal: encoded.keptOriginal,
   });
 
   return { ...assembled, blob: encoded.blob };
